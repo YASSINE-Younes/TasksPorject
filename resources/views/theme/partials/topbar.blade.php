@@ -19,17 +19,19 @@
             <!-- Dropdown -->
             <li class="ms-3 dropdown">
                 <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{-- <span>User :</span> --}}
                     <img src="{{ asset('assets') }}/images/avatar/avatar-1.jpg" alt=""
                         class="avatar avatar-sm rounded-circle" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end p-0" style="min-width: 200px;">
                     <div>
                         <div class="d-flex gap-3 align-items-center border-dashed border-bottom px-3 py-3">
+                            
                             <img src="{{ asset('assets') }}/images/avatar/avatar-1.jpg" alt=""
                                 class="avatar avatar-md rounded-circle" />
                             <div>
-                                <h4 class="mb-0 small">Shrina Tesla</h4>
-                                <p class="mb-0  small">@imshrina</p>
+                                <h4 class="mb-0 small">{{ Auth::user()->name }}</h4>
+                                {{-- <p class="mb-0  small">@imshrina</p> --}}
                             </div>
                         </div>
                         <div class="p-3 d-flex flex-column gap-1 small lh-lg">
@@ -49,10 +51,15 @@
 
                                 <span> Activity</span>
                             </a>
-                            <a href="#!" class="">
 
-                                <span> Account Settings</span>
-                            </a>
+                            <!-- Logout -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-outline-danger"> Deconnecter</button>
+                            </form>
+
+                             
+
                         </div>
 
                     </div>

@@ -1,47 +1,88 @@
-<x-guest-layout>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<head>
+  <meta charset="UTF-8" />
+  <title>Signin - InApp Inventory Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_io/favicon-16x16.png">
+  <link rel="manifest" href="./assets/images/favicon_io/site.webmanifest">
+  @vite(['resources/js/app.js'])
+
+
+</head>
+
+<body>
+
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card " style="max-width:420px; width:100%;">
+    <div class="card-body p-5">
+      <div class="text-center mb-3">
+      <a href="index.html" class="mb-4 d-inline-block"><img src="./assets/images/logo-icon.svg" alt="" width="36">
+      <span class=" ms-2"> <img src="./assets/images/logo.svg" alt=""></span>
+      </a>
+        <h1 class="card-title mb-5 h5">Sign in to your account</h1>
+
+      </div>
+
+      <!-- Form-->
+  <form method="POST" action="{{ route('login') }}" class="needs-validation mt-3" novalidate>
+
+  @csrf
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <!-- Email Input -->
+          <input id="email" type="email" class="form-control" placeholder="name@example.com" required autofocus
+           name="email" :value="old('email')"
+          >
+
+          <!-- Message ERROR EMAIL -->
+         <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="mb-3">
+          <label for="password" class="form-label d-flex justify-content-between">
+            <span>Password</span>
+             
+          </label>
+
+           <!-- Password Input -->
+          <input id="password" name="password"  type="password" class="form-control" placeholder="Password" required >
+
+           <!-- Message ERROR EMAIL -->
+            <x-input-error :messages="$errors->get('password')" class="mt-2"  />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+      
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        <button class="btn btn-primary w-100" type="submit">Sign in</button>
+      </form>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+      <div class="text-center mt-3 small text-muted">
+        Don't have an account? <a href="{{ route('register') }}"  class="link-primary">Sign up</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ 
+
+
+</body>
+
+</html>
+ 
+
+
+ 
