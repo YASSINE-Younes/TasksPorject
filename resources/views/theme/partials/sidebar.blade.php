@@ -7,11 +7,11 @@
             </a>
         </div>
         <ul class="nav flex-column">
-            <li class="px-4 py-2"><small class="nav-text">Main</small></li>
+            <li class="px-4 py-2"><small class="nav-text">Principale</small></li>
 
 
             <li><a class="nav-link active" href="{{ route('theme.index') }}"><i class="ti ti-home"></i><span
-                        class="nav-text">Dashboard</span></a></li>
+                        class="nav-text">Tableau De Bord</span></a></li>
 
 
             {{-- <li><a class="nav-link" href="inventory.html"><i class="ti ti-box-seam"></i><span

@@ -10,12 +10,12 @@
               <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
                   <div class="">
                       <h1 class="fs-3 mb-1">Ajouter une tâche</h1>
-                      {{-- <p class="mb-0">Manage your inventory items</p> --}}
+
                   </div>
 
                   <!-- Button Right -->
                   <div>
-                      <a href="inventory.html" class="btn btn-primary">Go to Inventory List</a>
+                      <a href="inventory.html" class="btn btn-primary">Aller au tableau de bord</a>
                   </div>
 
 
@@ -29,16 +29,25 @@
 
 
                       <!-- Form -->
-                      <form id="addTaskForm">
-
+                      <form method="POST" action="{{ route('tasks.store') }}" id="addTaskForm">
+                          @csrf
 
 
 
                           <!-- Start Title -->
                           <div class="mb-3">
-                              <label for="TaskName" class="form-label">Title </label>
-                              <input type="text" class="form-control" id="TaskName"
-                                  placeholder="Saisir le nom de la tâche" required>
+                              <label for="TaskTitle" class="form-label">Title </label>
+
+                              <input name ="title" type="text" class="form-control" id="TaskTitle"
+                                  placeholder="Saisir le titre de la tâche">
+
+                              <!-- Start Message Erreur TITLE VALIDATION -->
+                              @error('title')
+                                  <span class="text-danger small">{{ $message }}</span>
+                              @enderror
+                              <!-- Start Message Erreur TITLE VALIDATION -->
+
+
                           </div>
                           <!-- End Title -->
 
@@ -47,8 +56,14 @@
                           <div class="mb-3">
                               <label for="description" class="form-label">Description</label>
 
-                              <textarea class="form-control" id="description" rows="4" placeholder="Saisir la description de la tâche" required></textarea>
+                              <textarea name ="description" class="form-control" id="description" rows="4"
+                                  placeholder="Saisir la description de la tâche"></textarea>
 
+                              <!-- Start Message Erreur description VALIDATION -->
+                              @error('description')
+                                  <span class="text-danger small">{{ $message }}</span>
+                              @enderror
+                              <!-- Start Message Erreur description VALIDATION -->
 
 
                           </div>
@@ -66,7 +81,15 @@
                               <!-- Start image task-->
                               <div class="col-md-6 mb-3">
                                   <label for="TaskImage" class="form-label">Task Image</label>
-                                  <input type="file" class="form-control" id="TaskImage" accept="image/*">
+
+                                  <input name ="image" type="file" class="form-control" id="TaskImage" accept="image/*">
+
+                                  <!-- Start Message Erreur image VALIDATION -->
+                                  @error('image')
+                                      <span class="text-danger small">{{ $message }}</span>
+                                  @enderror
+                                  <!-- Start Message Erreur image VALIDATION -->
+
                               </div>
                               <!-- End image task-->
 
@@ -75,12 +98,20 @@
 
                               <div class="col-md-6 mb-3">
                                   <label for="prioritySelect" class="form-label">Priorité</label>
-                                  <select class="form-select" id="prioritySelect" required>
+                                  <select name ="priority" class="form-select" id="prioritySelect">
                                       <option value="">Select Priorité</option>
                                       <option value="low">low</option>
                                       <option value="medium">medium</option>
                                       <option value="high">high</option>
                                   </select>
+
+                                  <!-- Start Message Erreur priority VALIDATION -->
+                                  @error('priority')
+                                      <span class="text-danger small">{{ $message }}</span>
+                                  @enderror
+                                  <!-- Start Message Erreur priority VALIDATION -->
+
+
                               </div>
                               <!-- End  Priorité-->
 
@@ -89,7 +120,15 @@
                           <!-- Start Due Date -->
                           <div class="mb-3">
                               <label for="date_due" class="form-label">Date Due </label>
-                              <input type="date" class="form-control" id="date_due" required>
+
+                              <input name ="due_date" type="date" class="form-control" id="date_due">
+
+                              <!-- Start Message Erreur due_date VALIDATION -->
+                              @error('due_date')
+                                  <span class="text-danger small">{{ $message }}</span>
+                              @enderror
+                              <!-- Start Message Erreur due_date VALIDATION -->
+
                           </div>
                           <!-- end Due Date -->
 
