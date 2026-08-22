@@ -18,8 +18,7 @@
                         class="nav-text">Inventory</span></a></li> --}}
 
 
-            <li><a class="nav-link" href="{{ route('theme.add') }}"><i class="ti ti-plus"></i><span class="nav-text">Add
-                        Product</span></a></li>
+            <li><a class="nav-link" href="{{ route('theme.add') }}"><i class="ti ti-plus"></i><span class="nav-text">Ajouter une tâche</span></a></li>
 
 
             {{-- <li><a class="nav-link" href="reports.html"><i class="ti ti-receipt"></i><span
