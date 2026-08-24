@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
- 
+ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
@@ -30,7 +30,37 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        dd($request->all());
+         $data = $request->validated();
+
+
+              if($request->hasFile('image'))
+                 
+
+            {
+                // مراحل لكي اوصل للصورة التي تم تحميلها 
+                        
+                        // 1- get image
+                    $image = $request->image;
+                        
+                    // 2- change current name
+                    $newImageName = time() . '-' . $image->getClientOriginalName();
+
+                        // 3- move image from laptop to  my project laravel
+                        $image->storeAs('tasks' ,$newImageName , 'public'); 
+
+                    // 4- save new name image to database record
+                        $data['image']  = $newImageName;
+            }
+          
+      
+      // donne user connecter maintenant
+         $data['user_id'] = Auth::user()->id;
+        
+ 
+         // Créer un nouvel enregistrement dans la table TASKS
+        Task::create($data);
+        return back()->with('task-status',
+           'Task Added with success');
     }
 
     /**

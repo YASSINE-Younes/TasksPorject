@@ -24,7 +24,8 @@ class StoreTaskRequest extends FormRequest
         return [
          'title'       => 'required|string|max:255',
         'description' => 'required|string',
-        'image'       => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+        
+        'image'       => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
         'priority'    => 'required|in:low,medium,high', //يمنع إرسال قيمة غير موجودة في enum.
        
         'due_date'    => 'required|date|after_or_equal:today'
@@ -51,7 +52,7 @@ public function messages(): array
         'description.string'      => 'La description doit être une chaîne de caractères.',
 
         'image.image'             => 'Le fichier sélectionné doit être une image.',
-        'image.mimes'             => 'L’image doit être au format PNG, JPG ou JPEG.',
+        'image.mimes'             => 'L’image doit être au format PNG, JPG ou JPEG  ou WEBP.',
         'image.max'               => 'La taille de l’image ne doit pas dépasser 2 Mo.',
 
         'priority.required'       => 'La priorité est obligatoire.',

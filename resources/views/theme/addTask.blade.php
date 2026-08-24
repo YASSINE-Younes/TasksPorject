@@ -28,8 +28,19 @@
                   <div class="card-body p-4">
 
 
+
+                      <!-- ++++++++ Start Message ajouter avec succees +++++++++++ -->
+                      @if (session('task-status'))
+                          <div class="alert alert-success">
+                              {{ session('task-status') }}
+                          </div>
+                      @endif
+                      <!-- ++++++++ END Message ajouter avec succees +++++++++++ -->
+
+
                       <!-- Form -->
-                      <form method="POST" action="{{ route('tasks.store') }}" id="addTaskForm">
+                      <form method="POST" action="{{ route('tasks.store') }}" id="addTaskForm"
+                          enctype="multipart/form-data">
                           @csrf
 
 
@@ -39,7 +50,7 @@
                               <label for="TaskTitle" class="form-label">Title </label>
 
                               <input name ="title" type="text" class="form-control" id="TaskTitle"
-                                  placeholder="Saisir le titre de la tâche">
+                                  placeholder="Saisir le titre de la tâche" value="{{ old('title') }}">
 
                               <!-- Start Message Erreur TITLE VALIDATION -->
                               @error('title')
@@ -57,7 +68,7 @@
                               <label for="description" class="form-label">Description</label>
 
                               <textarea name ="description" class="form-control" id="description" rows="4"
-                                  placeholder="Saisir la description de la tâche"></textarea>
+                                  placeholder="Saisir la description de la tâche">{{ old('description') }}</textarea>
 
                               <!-- Start Message Erreur description VALIDATION -->
                               @error('description')
@@ -98,11 +109,12 @@
 
                               <div class="col-md-6 mb-3">
                                   <label for="prioritySelect" class="form-label">Priorité</label>
+                                
                                   <select name ="priority" class="form-select" id="prioritySelect">
                                       <option value="">Select Priorité</option>
-                                      <option value="low">low</option>
-                                      <option value="medium">medium</option>
-                                      <option value="high">high</option>
+                                      <option value="low" @selected(old('priority') === 'low')>low</option>
+                                      <option value="medium" @selected(old('priority') === 'medium')>medium</option>
+                                      <option value="high" @selected(old('priority') === 'high')>high</option>
                                   </select>
 
                                   <!-- Start Message Erreur priority VALIDATION -->
@@ -121,7 +133,8 @@
                           <div class="mb-3">
                               <label for="date_due" class="form-label">Date Due </label>
 
-                              <input name ="due_date" type="date" class="form-control" id="date_due">
+                              <input name ="due_date" value = "{{ old('due_date') }}" type="date" class="form-control"
+                                  id="date_due" >
 
                               <!-- Start Message Erreur due_date VALIDATION -->
                               @error('due_date')
