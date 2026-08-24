@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
- use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreTaskRequest;
+use Illuminate\Support\Facades\Auth;
+
+ use App\Http\Requests\StoreTaskRequest;
+
+
 
 class TaskController extends Controller
 {
@@ -14,7 +17,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+      $tasks = Task::where('user_id', Auth::id())->latest()->paginate(1);
+
+    return view('theme.index', compact('tasks'));
+
+                        
+
     }
 
     /**
