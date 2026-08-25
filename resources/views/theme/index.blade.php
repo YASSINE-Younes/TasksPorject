@@ -129,14 +129,76 @@
                             {{-- Status And Priority --}}
                             <div class="d-flex justify-content-between align-items-center mb-3">
 
-                                <span class="badge bg-warning-subtle text-warning">
-                                    <i class="ti ti-clock me-1"></i>
-                                    {{ $task->status }}
+
+                                <!-- Start STATUS PHP -->
+                                @php
+
+                                    $statusColor = 'secondary';
+                                    $statusIcon = 'ti-help-circle';
+                                    $statusLabel = $task->status;
+
+                                    if ($task->status === 'pending') {
+                                        $statusColor = 'warning';
+                                        $statusIcon = 'ti-clock';
+                                        $statusLabel = 'Pending';
+                                    } elseif ($task->status === 'in_progress') {
+                                        $statusColor = 'primary';
+                                        $statusIcon = 'ti-progress';
+                                        $statusLabel = 'In Progress';
+                                    } elseif ($task->status === 'completed') {
+                                        $statusColor = 'success';
+                                        $statusIcon = 'ti-circle-check';
+                                        $statusLabel = 'Completed';
+                                    }
+
+                                @endphp
+                                <!-- end STATUS PHP -->
+
+
+                                <!-- Status -->
+                                <span class="badge bg-{{ $statusColor }}-subtle text-{{ $statusColor }}">
+                                    <i class="ti {{ $statusIcon }} me-1"></i>
+                                    {{ $statusLabel }}
                                 </span>
 
-                                <span class="badge bg-danger-subtle text-danger">
+
+
+
+                                <!-- Start PRIORITY PHP -->
+                                @php
+                                    $priorityLabel = $task->priority;
+                                    $colorPriority = 'secondary';
+                                    
+
+                                    if ($task->priority === 'low') 
+                                    {
+                                        $colorPriority = 'success';
+                                        $priorityLabel = 'Low';
+                                        
+                                    } 
+                                    
+                                    elseif ($task->priority === 'medium') 
+                                    {
+                                        $colorPriority = 'warning';
+                                       $priorityLabel = 'Medium';
+                                    }
+                                    
+                                    elseif ($task->priority === 'high')
+                                     {
+                                        $colorPriority = 'danger';
+                                        $priorityLabel = 'High';
+                                    }
+
+                                @endphp
+
+
+                                <!-- End PRIORITY PHP -->
+
+
+                                <!-- priority -->
+                                <span class="badge bg-{{ $colorPriority }}-subtle text-{{ $colorPriority }}">
                                     <i class="ti ti-flag me-1"></i>
-                                    {{ $task->priority }}
+                                    {{ $priorityLabel }}
                                 </span>
 
                             </div>

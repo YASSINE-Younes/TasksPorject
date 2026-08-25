@@ -1,10 +1,13 @@
   <aside id="sidebar" class="sidebar">
+
+    <!-- start Logo -->
       <div class="logo-area">
           <a href="index.html" class="d-inline-flex"><img src="{{ asset('assets') }}/images/logo-icon.svg" alt=""
                   width="24">
               <span class="logo-text ms-2"> <img src="{{ asset('assets') }}/images/logo.svg" alt=""></span>
           </a>
       </div>
+      <!-- End Logo -->
       <ul class="nav flex-column">
           <li class="px-4 py-2"><small class="nav-text">Principale</small></li>
 
