@@ -1,73 +1,113 @@
-<nav id="topbar" class="navbar bg-white border-bottom fixed-top topbar px-3">
-    <button id="toggleBtn" class="d-none d-lg-inline-flex btn btn-light btn-icon btn-sm ">
+<nav id="topbar"
+    class="navbar bg-white border-bottom fixed-top topbar px-3">
+
+    {{-- Desktop Sidebar Button --}}
+    <button type="button"
+        id="toggleBtn"
+        class="d-none d-lg-inline-flex btn btn-light btn-icon btn-sm"
+        title="Afficher ou masquer le menu">
+
         <i class="ti ti-layout-sidebar-left-expand"></i>
     </button>
 
-    <!-- MOBILE -->
-    <button id="mobileBtn" class="btn btn-light btn-icon btn-sm d-lg-none me-2">
-        <i class="ti ti-layout-sidebar-left-expand"></i>
+    {{-- Mobile Sidebar Button --}}
+    <button type="button"
+        id="mobileBtn"
+        class="btn btn-light btn-icon btn-sm d-lg-none"
+        title="Ouvrir le menu">
+
+        <i class="ti ti-menu-2"></i>
     </button>
 
+    {{-- User Dropdown --}}
+    <div class="dropdown ms-auto">
 
+        <button type="button"
+            class="btn border-0 p-0 d-flex align-items-center gap-2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
 
-    <div>
-        <!-- Navbar nav -->
-        <ul class="list-unstyled d-flex align-items-center mb-0 gap-1">
-            <!-- Pages link -->
+            <div class="d-none d-md-block text-end">
 
+                <span class="d-block small fw-semibold text-dark">
+                    {{ Auth::user()->name }}
+                </span>
 
-            <!-- Dropdown -->
-            <li class="ms-3 dropdown">
-                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- <span>User :</span> --}}
-                    <img src="{{ asset('assets') }}/images/avatar/avatar-1.jpg" alt=""
-                        class="avatar avatar-sm rounded-circle" />
-                </a>
-                <div class="dropdown-menu dropdown-menu-end p-0" style="min-width: 200px;">
-                    <div>
-                        <div class="d-flex gap-3 align-items-center border-dashed border-bottom px-3 py-3">
-                            
-                            <img src="{{ asset('assets') }}/images/avatar/avatar-1.jpg" alt=""
-                                class="avatar avatar-md rounded-circle" />
-                            <div>
-                                <h4 class="mb-0 small">{{ Auth::user()->name }}</h4>
-                                {{-- <p class="mb-0  small">@imshrina</p> --}}
-                            </div>
-                        </div>
-                        <div class="p-3 d-flex flex-column gap-1 small lh-lg">
-                            <a href="#!" class="">
+                <small class="text-secondary">
+                    Mon compte
+                </small>
 
-                                <span>Home</span>
-                            </a>
-                            <a href="#!" class="">
+            </div>
 
-                                <span> Inbox</span>
-                            </a>
-                            <a href="#!" class="">
+            <img src="{{ asset('assets/images/avatar/avatar-0.png') }}"
+                alt="Photo de {{ Auth::user()->name }}"
+                class="avatar avatar-sm rounded-circle">
 
-                                <span> Chat</span>
-                            </a>
-                            <a href="#!" class="">
+            <i class="ti ti-chevron-down text-secondary"></i>
+        </button>
 
-                                <span> Activity</span>
-                            </a>
+        <div class="dropdown-menu dropdown-menu-end border-0 shadow p-0 mt-2"
+            style="min-width: 260px;">
 
-                            <!-- Logout -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-danger"> Deconnecter</button>
-                            </form>
+            {{-- User Information --}}
+            <div class="d-flex gap-3 align-items-center border-bottom px-3 py-3">
 
-                             
+                <img src="{{ asset('assets/images/avatar/avatar-0.png') }}"
+                    alt="Photo de {{ Auth::user()->name }}"
+                    class="avatar avatar-md rounded-circle">
 
-                        </div>
+                <div class="overflow-hidden">
 
-                    </div>
+                    <h4 class="mb-1 small fw-semibold">
+                        {{ Auth::user()->name }}
+                    </h4>
+
+                    <p class="mb-0 small text-secondary text-truncate">
+                        {{ Auth::user()->email }}
+                    </p>
+
                 </div>
-            </li>
 
+            </div>
 
-        </ul>
+            {{-- Navigation --}}
+            <div class="p-2">
+
+                <a href="{{ route('tasks.index') }}"
+                    class="dropdown-item d-flex align-items-center gap-2 rounded">
+
+                    <i class="ti ti-list-check"></i>
+                    <span>Mes tâches</span>
+                </a>
+
+                <a href="{{ route('profile.edit') }}"
+                    class="dropdown-item d-flex align-items-center gap-2 rounded">
+
+                    <i class="ti ti-user-cog"></i>
+                    <span>Mon profil</span>
+                </a>
+
+            </div>
+
+            {{-- Logout --}}
+            <div class="border-top p-2">
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <button type="submit"
+                        class="dropdown-item d-flex align-items-center gap-2 rounded text-danger">
+
+                        <i class="ti ti-logout"></i>
+                        <span>Se déconnecter</span>
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
     </div>
 
 </nav>
