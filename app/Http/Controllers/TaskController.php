@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
  use App\Http\Requests\StoreTaskRequest;
-
+ use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Support\Facades\Storage;
 
 
 class TaskController extends Controller
@@ -83,7 +84,7 @@ class TaskController extends Controller
       return view('theme.showTask' , compact('task'));
             }
             else {
-                abort(403 , 'Impossible d entrer une tache pas de vous ' );
+                abort(403 , 'Impossible de voir  une tache pas de vous ' );
             }
     }
 
@@ -92,15 +93,73 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+         if($task->user_id == Auth::user()->id)
+            {
+
+            
+            return view('theme.editTask' , compact('task'));
+            }
+            else {
+                abort(403 , 'Impossible de modofier  une tache pas de vous ' );
+            }
       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+ 
+     if($task->user_id == Auth::user()->id)
+                 
+        {
+
+         $data = $request->validated();
+      
+         
+            // تاكد في حالة  مستخدم حمل صورة ام لا
+            if($request->hasFile('image'))
+                {
+                     // مراحل لكي اوصل للصورة التي تم تحميلها 
+        
+                      //0 Delete Old Image dans Dossier Originale STORAGE  
+                      // on utuliser IF Parce que votre image est nulle.
+                     //  Si la tâche ne contient pas d'ancienne image, 
+                       //Laravel ne tentera pas de supprimer un chemin vide.
+                      if ($task->image) 
+                        {
+                                  Storage::delete("public/tasks/$task->image");  
+                      }
+                        
+ 
+                        // 1- get image
+                    $image = $request->image;
+                        
+                    // 2- change current name
+                    $newImageName = time() . '-' . $image->getClientOriginalName();
+
+                        // 3- move image from laptop to  my project laravel
+                        $image->storeAs('tasks' ,$newImageName , 'public'); 
+
+                    // 4- save new name image to database record
+                        $data['image']  = $newImageName;
+
+                              
+                       }
+
+
+  
+
+         $task->update($data);
+
+        return back()->with('update-task',   'La tâche a été modifiée avec succès.');
+                    }
+                    else 
+                    {
+                       abort(403 , 'Vous n’êtes pas autorisé à modifier cette tâche.');
+                    }
+        
     }
 
     /**

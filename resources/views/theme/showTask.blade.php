@@ -255,7 +255,7 @@
 
                     <div class="d-grid gap-2">
 
-                        <a href="#"
+                        <a href="{{ route('tasks.edit' , ['task' => $task]) }}"
                            class="btn btn-primary">
 
                             <i class="ti ti-pencil me-1"></i>
