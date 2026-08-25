@@ -236,7 +236,7 @@
                             {{-- Actions --}}
                             <div class="d-flex gap-2">
 
-                                <a href="#" class="btn btn-primary btn-sm flex-grow-1">
+                                <a href="{{ route('tasks.show' , ['task' => $task]) }}" class="btn btn-primary btn-sm flex-grow-1" target="_blank">
                                     <i class="ti ti-eye me-1"></i>
                                     Voir
                                 </a>

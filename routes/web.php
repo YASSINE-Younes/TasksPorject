@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/x' , 'theme.master');
+Route::view('/x' , 'theme.showTask');
 
 Route::controller(ThemeController::class)->name('theme.')->group(function(){
     route::get('/' , 'index')->name('index');

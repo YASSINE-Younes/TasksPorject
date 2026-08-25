@@ -76,7 +76,15 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        if($task->user_id == Auth::user()->id)
+            {
+
+            
+      return view('theme.showTask' , compact('task'));
+            }
+            else {
+                abort(403 , 'Impossible d entrer une tache pas de vous ' );
+            }
     }
 
     /**
@@ -84,7 +92,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+      
     }
 
     /**
