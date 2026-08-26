@@ -106,6 +106,23 @@
     {{-- Start Tasks Cards --}}
     <div class="row g-4">
 
+
+
+
+        <!-- ++++++++ satrt afficher messge supprimer avec succes  +++++++++++ -->
+        @if (session('task-status-delete'))
+            <div class="alert alert-success">
+                {{ session('task-status-delete') }}
+            </div>
+        @endif
+        <!-- ++++++++  end afficher messge supprimer avec succes +++++++++++ -->
+
+
+
+
+
+
+
         {{-- Task 1 --}}
 
         @if (count($tasks) > 0)
@@ -168,23 +185,14 @@
                                 @php
                                     $priorityLabel = $task->priority;
                                     $colorPriority = 'secondary';
-                                    
 
-                                    if ($task->priority === 'low') 
-                                    {
+                                    if ($task->priority === 'low') {
                                         $colorPriority = 'success';
                                         $priorityLabel = 'Low';
-                                        
-                                    } 
-                                    
-                                    elseif ($task->priority === 'medium') 
-                                    {
+                                    } elseif ($task->priority === 'medium') {
                                         $colorPriority = 'warning';
-                                       $priorityLabel = 'Medium';
-                                    }
-                                    
-                                    elseif ($task->priority === 'high')
-                                     {
+                                        $priorityLabel = 'Medium';
+                                    } elseif ($task->priority === 'high') {
                                         $colorPriority = 'danger';
                                         $priorityLabel = 'High';
                                     }
@@ -236,18 +244,19 @@
                             {{-- Actions --}}
                             <div class="d-flex gap-2">
 
-                                <a href="{{ route('tasks.show' , ['task' => $task]) }}" class="btn btn-primary btn-sm flex-grow-1" target="_blank">
+                                <a href="{{ route('tasks.show', ['task' => $task]) }}"
+                                    class="btn btn-primary btn-sm flex-grow-1" >
                                     <i class="ti ti-eye me-1"></i>
                                     Voir
                                 </a>
 
-                                <a href="#" class="btn btn-outline-secondary btn-sm" title="Modifier">
+                                {{-- <a href="" class="btn btn-outline-secondary btn-sm" title="Modifier">
                                     <i class="ti ti-pencil"></i>
-                                </a>
+                                </a> --}}
 
-                                <button type="button" class="btn btn-outline-danger btn-sm" title="Supprimer">
+                                {{-- <button type="button" class="btn btn-outline-danger btn-sm" title="Supprimer">
                                     <i class="ti ti-trash"></i>
-                                </button>
+                                </button> --}}
 
                             </div>
 

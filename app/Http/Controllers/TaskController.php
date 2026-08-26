@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
+
+    //constructeur
+        public function __construct()
+        {
+                $this->middleware('auth');
+        }
+
+
+
     /**
      * Display a listing of the resource.
      */
@@ -167,6 +176,23 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+         if($task->user_id == Auth::user()->id)
+         {
+
+         // حذف الصورة إذا كانت موجودة
+        if ($task->image) 
+            {
+            // تاكد من ان المستخدم الذي يريد حذف المقال هو نفس المستخدم الذي قام بانشاء المقال
+           Storage::delete("public/tasks/$task->image");  
+        }
+
+             // حذف المهمة من قاعدة البيانات
+            $task->delete();
+             return to_route('tasks.index')->with('task-status-delete',   'La tâche a été supprimée avec succès.');
+           }
+           else 
+            {
+            abort(403 , 'Vous n’êtes pas autorisé à supprimer cette tâche.');
+              }
     }
 }

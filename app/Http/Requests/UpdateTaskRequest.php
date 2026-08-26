@@ -29,7 +29,7 @@ class UpdateTaskRequest extends FormRequest
         'status'      => 'required|in:pending,in_progress,completed', //يمنع إرسال قيمة غير موجودة في enum.
         'priority'    => 'required|in:low,medium,high', //يمنع إرسال قيمة غير موجودة في enum.
        
-        'due_date'    => 'required|date|after_or_equal:today'
+        'due_date'    => 'required|date'
             // يعني:
 
             // الحقل إجباري.
@@ -64,7 +64,7 @@ public function messages(): array
 
         'due_date.required'       => 'La date d’échéance est obligatoire.',
         'due_date.date'           => 'La date d’échéance doit être une date valide.',
-        'due_date.after_or_equal' => 'La date d’échéance doit être aujourd’hui ou une date future.',
+        
     ];
 }
 

@@ -1,7 +1,6 @@
 @extends('theme.master')
 
 @section('content')
-
     <style>
         .task-details-image {
             width: 100%;
@@ -73,8 +72,7 @@
             </p>
         </div>
 
-        <a href="{{ route('tasks.index') }}"
-           class="btn btn-light">
+        <a href="{{ route('tasks.index') }}" class="btn btn-light">
 
             <i class="ti ti-arrow-left me-1"></i>
             Retour aux tâches
@@ -92,14 +90,11 @@
 
                 {{-- Task Image --}}
                 @if ($task->image)
-
-                    <img src="{{ asset("storage/tasks/$task->image") }}"
-                         class="task-details-image"
-                         alt="{{ $task->title }}">
-
+                    <img src="{{ asset("storage/tasks/$task->image") }}" class="task-details-image"
+                        alt="{{ $task->title }}">
                 @else
-
-                    <div class="task-image-placeholder d-flex flex-column justify-content-center align-items-center bg-light">
+                    <div
+                        class="task-image-placeholder d-flex flex-column justify-content-center align-items-center bg-light">
 
                         <i class="ti ti-photo-off fs-1 text-secondary mb-2"></i>
 
@@ -108,7 +103,6 @@
                         </span>
 
                     </div>
-
                 @endif
 
                 <div class="card-body p-4 p-lg-5">
@@ -255,19 +249,29 @@
 
                     <div class="d-grid gap-2">
 
-                        <a href="{{ route('tasks.edit' , ['task' => $task]) }}"
-                           class="btn btn-primary">
+                        <!-- Start Button edit -->
+                        <a href="{{ route('tasks.edit', ['task' => $task]) }}" class="btn btn-primary">
 
                             <i class="ti ti-pencil me-1"></i>
                             Modifier la tâche
                         </a>
+                        <!-- end  Button Edit -->
 
-                        <button type="button"
-                                class="btn btn-outline-danger">
+
+
+
+                        {{-- Start Delete Button --}}
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteTaskModal">
 
                             <i class="ti ti-trash me-1"></i>
                             Supprimer la tâche
                         </button>
+                        {{-- End Delete Button --}}
+
+
+
+
 
                     </div>
 
@@ -280,6 +284,88 @@
 
     </div>
 
-    @include('theme.partials.footer')
+    {{-- Start Delete Confirmation Modal --}}
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
 
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content border-0 shadow">
+
+                {{-- Modal Header --}}
+                <div class="modal-header border-0 pb-0">
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer">
+                    </button>
+
+                </div>
+
+                {{-- Modal Body --}}
+                <div class="modal-body text-center px-4 pt-2 pb-4">
+
+                    {{-- Delete Icon --}}
+                    <div
+                        class="icon-shape icon-lg bg-danger bg-opacity-10
+                            text-danger rounded-circle mx-auto mb-4">
+
+                        <i class="ti ti-trash fs-3"></i>
+                    </div>
+
+                    <h2 class="h4 mb-2" id="deleteTaskModalLabel">
+
+                        Supprimer cette tâche ?
+                    </h2>
+
+                    <p class="text-secondary mb-2">
+                        Vous êtes sur le point de supprimer :
+                    </p>
+
+                    <p class="fw-semibold text-dark mb-3">
+                        « {{ $task->title }} »
+                    </p>
+
+                    <div
+                        class="alert alert-danger bg-danger bg-opacity-10
+                            border-0 text-danger small text-start">
+
+                        <i class="ti ti-alert-triangle me-1"></i>
+
+                        Cette action est définitive. La tâche et son image
+                        seront supprimées.
+                    </div>
+
+                </div>
+
+                {{-- Modal Footer --}}
+                <div class="modal-footer border-0 justify-content-center pt-0 pb-4">
+
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+
+                        <i class="ti ti-x me-1"></i>
+                        Annuler
+                    </button>
+
+                    {{-- Delete Form --}}
+                    <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">
+
+                            <i class="ti ti-trash me-1"></i>
+                            Oui, supprimer
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    {{-- End  Delete Confirmation Modal --}}
+
+    @include('theme.partials.footer')
 @endsection
