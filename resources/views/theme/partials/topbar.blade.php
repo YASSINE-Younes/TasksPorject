@@ -1,5 +1,5 @@
 <nav id="topbar"
-    class="navbar bg-white border-bottom fixed-top topbar px-3">
+    class="navbar bg-body border-bottom fixed-top topbar px-3">
 
     {{-- Desktop Sidebar Button --}}
     <button type="button"
@@ -19,95 +19,164 @@
         <i class="ti ti-menu-2"></i>
     </button>
 
-    {{-- User Dropdown --}}
-    <div class="dropdown ms-auto">
+    {{-- Right Actions --}}
+    <div class="d-flex align-items-center gap-3 ms-auto">
 
-        <button type="button"
-            class="btn border-0 p-0 d-flex align-items-center gap-2"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
+        {{-- Start Theme Dropdown --}}
+        <div class="dropdown">
 
-            <div class="d-none d-md-block text-end">
+            <button type="button"
+                class="btn btn-light btn-icon btn-sm"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Changer le thème"
+                aria-label="Changer le thème">
 
-                <span class="d-block small fw-semibold text-dark">
-                    {{ Auth::user()->name }}
-                </span>
+                <i id="currentThemeIcon" class="ti ti-sun"></i>
+            </button>
 
-                <small class="text-secondary">
-                    Mon compte
-                </small>
+            <div class="dropdown-menu dropdown-menu-end border-0 shadow p-2 mt-2"
+                style="min-width: 180px;">
+
+                {{-- Light Theme --}}
+                <button type="button"
+                    class="dropdown-item rounded d-flex align-items-center gap-2"
+                    data-theme-value="light">
+
+                    <i class="ti ti-sun"></i>
+
+                    <span class="flex-grow-1">
+                        Clair
+                    </span>
+
+                </button>
+
+                {{-- Dark Theme --}}
+                <button type="button"
+                    class="dropdown-item rounded d-flex align-items-center gap-2"
+                    data-theme-value="dark">
+
+                    <i class="ti ti-moon"></i>
+
+                    <span class="flex-grow-1">
+                        Sombre
+                    </span>
+
+                </button>
+
+                {{-- System Theme --}}
+                <button type="button"
+                    class="dropdown-item rounded d-flex align-items-center gap-2"
+                    data-theme-value="system">
+
+                    <i class="ti ti-device-desktop"></i>
+
+                    <span class="flex-grow-1">
+                        Système
+                    </span>
+
+                </button>
 
             </div>
 
-            <img src="{{ asset('assets/images/avatar/avatar-0.png') }}"
-                alt="Photo de {{ Auth::user()->name }}"
-                class="avatar avatar-sm rounded-circle">
+        </div>
+        {{-- End Theme Dropdown --}}
 
-            <i class="ti ti-chevron-down text-secondary"></i>
-        </button>
+        {{-- Start User Dropdown --}}
+        <div class="dropdown">
 
-        <div class="dropdown-menu dropdown-menu-end border-0 shadow p-0 mt-2"
-            style="min-width: 260px;">
+            <button type="button"
+                class="btn border-0 p-0 d-flex align-items-center gap-2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
 
-            {{-- User Information --}}
-            <div class="d-flex gap-3 align-items-center border-bottom px-3 py-3">
+                <div class="d-none d-md-block text-end">
+
+                    <span class="d-block small fw-semibold text-body">
+                        {{ Auth::user()->name }}
+                    </span>
+
+                    <small class="text-secondary">
+                        Mon compte
+                    </small>
+
+                </div>
 
                 <img src="{{ asset('assets/images/avatar/avatar-0.png') }}"
                     alt="Photo de {{ Auth::user()->name }}"
-                    class="avatar avatar-md rounded-circle">
+                    class="avatar avatar-sm rounded-circle">
 
-                <div class="overflow-hidden">
+                <i class="ti ti-chevron-down text-secondary"></i>
 
-                    <h4 class="mb-1 small fw-semibold">
-                        {{ Auth::user()->name }}
-                    </h4>
+            </button>
 
-                    <p class="mb-0 small text-secondary text-truncate">
-                        {{ Auth::user()->email }}
-                    </p>
+            <div class="dropdown-menu dropdown-menu-end border-0 shadow p-0 mt-2"
+                style="min-width: 260px;">
+
+                {{-- User Information --}}
+                <div class="d-flex gap-3 align-items-center border-bottom px-3 py-3">
+
+                    <img src="{{ asset('assets/images/avatar/avatar-0.png') }}"
+                        alt="Photo de {{ Auth::user()->name }}"
+                        class="avatar avatar-md rounded-circle">
+
+                    <div class="overflow-hidden">
+
+                        <h4 class="mb-1 small fw-semibold text-body">
+                            {{ Auth::user()->name }}
+                        </h4>
+
+                        <p class="mb-0 small text-secondary text-truncate">
+                            {{ Auth::user()->email }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {{-- Navigation --}}
+                <div class="p-2">
+
+                    <a href="{{ route('tasks.index') }}"
+                        class="dropdown-item d-flex align-items-center gap-2 rounded">
+
+                        <i class="ti ti-list-check"></i>
+                        <span>Mes tâches</span>
+                    </a>
+
+                    <a href="{{ route('profile.edit') }}"
+                        class="dropdown-item d-flex align-items-center gap-2 rounded">
+
+                        <i class="ti ti-user-cog"></i>
+                        <span>Mon profil</span>
+                    </a>
+
+                </div>
+
+                {{-- Logout --}}
+                <div class="border-top p-2">
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <button type="submit"
+                            class="dropdown-item d-flex align-items-center gap-2 rounded text-danger">
+
+                            <i class="ti ti-logout"></i>
+                            <span>Se déconnecter</span>
+
+                        </button>
+
+                    </form>
 
                 </div>
 
             </div>
 
-            {{-- Navigation --}}
-            <div class="p-2">
-
-                <a href="{{ route('tasks.index') }}"
-                    class="dropdown-item d-flex align-items-center gap-2 rounded">
-
-                    <i class="ti ti-list-check"></i>
-                    <span>Mes tâches</span>
-                </a>
-
-                <a href="{{ route('profile.edit') }}"
-                    class="dropdown-item d-flex align-items-center gap-2 rounded">
-
-                    <i class="ti ti-user-cog"></i>
-                    <span>Mon profil</span>
-                </a>
-
-            </div>
-
-            {{-- Logout --}}
-            <div class="border-top p-2">
-
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <button type="submit"
-                        class="dropdown-item d-flex align-items-center gap-2 rounded text-danger">
-
-                        <i class="ti ti-logout"></i>
-                        <span>Se déconnecter</span>
-                    </button>
-
-                </form>
-
-            </div>
-
         </div>
+        {{-- End User Dropdown --}}
 
     </div>
+    {{-- End Right Actions --}}
 
 </nav>

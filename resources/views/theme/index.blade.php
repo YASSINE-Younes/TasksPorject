@@ -57,20 +57,40 @@
 
             <div class="row g-3">
 
+
+
+
+
                 {{-- Search --}}
                 <div class="col-lg-6 col-12">
 
-                    <div class="input-group">
+                    <form action="{{ route('tasks.index') }}" method="GET">
 
-                        <span class="input-group-text bg-white task-search-icon">
-                            <i class="ti ti-search"></i>
-                        </span>
+                        <div class="input-group">
 
-                        <input type="text" class="form-control" placeholder="Rechercher une tâche...">
+                            <span class="input-group-text bg-white task-search-icon">
+                                <i class="ti ti-search"></i>
+                            </span>
 
-                    </div>
+                            <input type="text" name="search" class="form-control" placeholder="Rechercher une tâche..."
+                                value="{{ request('search') }}">
+
+                            <button type="submit" class="btn btn-primary">
+                                Rechercher
+                            </button>
+
+                        </div>
+
+                    </form>
 
                 </div>
+
+
+
+
+
+
+
 
                 {{-- Status Filter --}}
                 <div class="col-lg-3 col-md-6 col-12">
@@ -245,7 +265,7 @@
                             <div class="d-flex gap-2">
 
                                 <a href="{{ route('tasks.show', ['task' => $task]) }}"
-                                    class="btn btn-primary btn-sm flex-grow-1" >
+                                    class="btn btn-primary btn-sm flex-grow-1">
                                     <i class="ti ti-eye me-1"></i>
                                     Voir
                                 </a>
@@ -269,7 +289,11 @@
         @else
             <div class="col-12">
                 <div class="alert alert-info text-center">
-                    Vous n’avez encore aucune tâche.
+                    @if (request('search'))
+                        Aucune tâche trouvée pour « {{ request('search') }} ».
+                    @else
+                        Vous n’avez encore aucune tâche.
+                    @endif
                 </div>
             </div>
         @endif
@@ -283,7 +307,8 @@
 
 
 
-        {{ $tasks->render('pagination::bootstrap-4') }}
+        {{-- {{ $tasks->render('pagination::bootstrap-4') }} --}}
+        {{ $tasks->withQueryString()->links('pagination::bootstrap-4') }}
 
 
 

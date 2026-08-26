@@ -227,10 +227,8 @@
                         {{-- Existing Chart --}}
                         <div class="col-md-7">
 
-                            <div id="taskStatusChart" 
-                                        data-pending="{{ $pendingTasks }}"
-                                        data-in-progress="{{ $inProgressTasks }}"
-                                        data-completed="{{ $completedTasks }}">
+                            <div id="taskStatusChart" data-pending="{{ $pendingTasks }}"
+                                data-in-progress="{{ $inProgressTasks }}" data-completed="{{ $completedTasks }}">
                             </div>
                             {{-- <div id="customerChart"></div> --}}
 

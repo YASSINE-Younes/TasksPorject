@@ -25,12 +25,24 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-      $tasks = Task::where('user_id', Auth::id())->latest()->paginate(6);
+                    $search = $request->search;
 
-    return view('theme.index', compact('tasks'));
+                // تجهيز استعلام مهام المستخدم
+                $query = Task::where('user_id', Auth::id());
 
+                // إضافة شرط البحث إلى الاستعلام
+                if ($search) 
+                {
+                    $query->where('title','like','%' . $search . '%');
+                }
+                
+
+                // تنفيذ الاستعلام والحصول على المهام
+                $tasks = $query->latest()->paginate(6);
+
+                return view('theme.index', compact('tasks'));
                         
 
     }

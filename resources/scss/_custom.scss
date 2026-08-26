@@ -12,55 +12,76 @@
 }
 .sidebar {
 	width: 240px;
-	background: $white;
+
+	// يتغير تلقائيًا حسب Theme
+	background-color: var(--bs-body-bg);
+	color: var(--bs-body-color);
+
 	transition: width .3s, left .3s;
-  border-right: 1px solid $gray-200;
+
+	border-right: 1px solid var(--bs-border-color);
+
 	height: 100vh;
 	position: fixed;
 	top: 0;
 	left: 0;
 	padding-top: 60px;
 	z-index: 1030;
+
 	.nav-link {
-		color: $gray-800;
+		color: var(--bs-body-color);
+
 		padding: 8px 10px;
 		display: flex;
 		align-items: center;
-    font-size: 14px;
-    font-weight: 400;
+
+		font-size: 14px;
+		font-weight: 400;
+
 		gap: 12px;
 		white-space: nowrap;
-    margin: 1px 12px;
-    border-radius: 8px;
+
+		margin: 1px 12px;
+		border-radius: 8px;
 
 		&:hover {
 			color: $primary;
-      background-color: rgba($primary, 0.095);
+			background-color: rgba($primary, 0.095);
 		}
-			&.active {
+
+		&.active {
 			color: $primary;
-      background-color: rgba($primary, 0.095);
+			background-color: rgba($primary, 0.095);
 		}
-    .ti {
-      font-size: 18px;
-    }
+
+		.ti {
+			font-size: 18px;
+		}
 	}
+
 	.nav-text {
 		transition: opacity .2s;
 	}
+
 	.logo-area {
 		position: absolute;
 		top: 0;
 		left: 0;
+
 		height: 60px;
 		width: 100%;
-		background: $white;
+
+		// يتغير تلقائيًا حسب Theme
+		background-color: var(--bs-body-bg);
+		color: var(--bs-body-color);
+
 		display: flex;
 		align-items: center;
+
 		gap: 10px;
 		padding-left: 17px;
-		color: $gray-800;
-    border-bottom: 1px solid $gray-200;
+
+		border-bottom: 1px solid var(--bs-border-color);
 	}
 }
 .sidebar.collapsed {

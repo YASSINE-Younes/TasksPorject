@@ -5,8 +5,8 @@
 import ApexCharts from 'apexcharts';
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('salesPurchaseChart')) {
-         var options = {
+  if (document.getElementById('salesPurchaseChart')) {
+    var options = {
       series: [
         {
           name: 'Sales',
@@ -91,160 +91,197 @@ document.addEventListener('DOMContentLoaded', () => {
           },
         },
         title: {
-          text: '$ (thousands)' ,
+          text: '$ (thousands)',
         },
       },
       fill: {
         opacity: 1,
       },
-     tooltip: {
-    			y: {
-    				formatter: function (val) {
-    					return "$ " + val + " thousands"
-    				}
-    			}
-    		},
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return "$ " + val + " thousands"
+          }
+        }
+      },
     };
 
-var chart = new ApexCharts(document.querySelector("#salesPurchaseChart"), options);
+    var chart = new ApexCharts(document.querySelector("#salesPurchaseChart"), options);
 
-chart.render();
-    }
-   // Start Task Status Chart
-const taskStatusChartElement = document.getElementById('taskStatusChart');
+    chart.render();
+  }
+  // Start Task Status Chart
+  const taskStatusChartElement = document.getElementById('taskStatusChart');
 
-if (taskStatusChartElement) {
+  if (taskStatusChartElement) {
 
-    // قراءة القيم القادمة من Laravel Blade
+    // قراءة أعداد المهام القادمة من Laravel Blade
     const pendingTasks = Number(
-        taskStatusChartElement.dataset.pending
+      taskStatusChartElement.dataset.pending
     );
 
     const inProgressTasks = Number(
-        taskStatusChartElement.dataset.inProgress
+      taskStatusChartElement.dataset.inProgress
     );
 
     const completedTasks = Number(
-        taskStatusChartElement.dataset.completed
+      taskStatusChartElement.dataset.completed
     );
 
+    // حساب العدد الإجمالي للمهام
     const totalTasks =
-        pendingTasks +
-        inProgressTasks +
-        completedTasks;
+      pendingTasks +
+      inProgressTasks +
+      completedTasks;
 
     const hasTasks = totalTasks > 0;
 
+    // add
+    const rootStyles = getComputedStyle(document.documentElement);
+
+    const bodyColor = rootStyles
+      .getPropertyValue('--bs-body-color')
+      .trim();
+
+    const secondaryColor = rootStyles
+      .getPropertyValue('--bs-secondary-color')
+      .trim();
+
+    const bodyBackground = rootStyles
+      .getPropertyValue('--bs-body-bg')
+      .trim();
+
+    //end
+
+
+
+
     const options = {
 
-        // ApexCharts يستقبل أعداد المهام مباشرة
-        series: hasTasks
-            ? [pendingTasks, inProgressTasks, completedTasks]
-            : [1],
+      series: hasTasks
+        ? [pendingTasks, inProgressTasks, completedTasks]
+        : [1],
 
-        labels: hasTasks
-            ? ['En attente', 'En cours', 'Terminées']
-            : ['Aucune tâche'],
+      labels: hasTasks
+        ? ['En attente', 'En cours', 'Terminées']
+        : ['Aucune tâche'],
 
-        colors: hasTasks
-            ? ['#f5b800', '#06b6d4', '#00c853']
-            : ['#e9ecef'],
+      colors: hasTasks
+        ? ['#f5b800', '#06b6d4', '#00c853']
+        : ['#e9ecef'],
 
-        chart: {
-            type: 'donut',
-            height: 280,
-            toolbar: {
-                show: false
-            }
-        },
+      chart: {
+        type: 'donut',
+        height: 280,
 
-        stroke: {
-            width: 4,
-            colors: ['#ffffff']
-        },
+        toolbar: {
+          show: false
+        }
+      },
 
-        plotOptions: {
-            pie: {
-                donut: {
-                    size: '68%',
+      // لون الفصل بين أجزاء الرسم
+      stroke: {
+        width: 4,
+        colors: [bodyBackground]
+      },
 
-                    labels: {
-                        show: true,
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '68%',
 
-                        name: {
-                            show: true,
-                            fontSize: '14px',
-                            color: '#6c757d'
-                        },
+            labels: {
+              show: true,
 
-                        value: {
-                            show: true,
-                            fontSize: '26px',
-                            fontWeight: 600,
-                            color: '#212529'
-                        },
+            
+              name: {
+                show: true,
+                fontSize: '14px',
+                color: secondaryColor
+              },
 
-                        total: {
-                            show: true,
-                            label: 'Total',
-                            fontSize: '14px',
-                            color: '#6c757d',
+              value: {
+                show: true,
+                fontSize: '26px',
+                fontWeight: 600,
+                color: bodyColor
+              },
 
-                            formatter: function () {
-                                return totalTasks;
-                            }
-                        }
-                    }
+              total: {
+                show: true,
+                label: 'Total',
+                fontSize: '14px',
+                color: secondaryColor,
+
+                formatter: function () {
+                  return totalTasks;
                 }
+              }
+
+
+
+
+
+
+
+
+
+
+
             }
-        },
+          }
+        }
+      },
 
-        dataLabels: {
-            enabled: false
-        },
+      dataLabels: {
+        enabled: false
+      },
 
-        legend: {
-            show: false
-        },
+      legend: {
+        show: false
+      },
 
-        tooltip: {
-            enabled: hasTasks,
+      tooltip: {
+        enabled: hasTasks,
 
-            y: {
-                formatter: function (value) {
-                    return value + (value > 1 ? ' tâches' : ' tâche');
-                }
+        y: {
+          formatter: function (value) {
+            return value +
+              (value > 1 ? ' tâches' : ' tâche');
+          }
+        }
+      },
+
+      responsive: [
+        {
+          breakpoint: 768,
+
+          options: {
+            chart: {
+              height: 240
             }
-        },
-
-        responsive: [
-            {
-                breakpoint: 768,
-
-                options: {
-                    chart: {
-                        height: 240
-                    }
-                }
-            }
-        ]
+          }
+        }
+      ]
     };
 
     const taskStatusChart = new ApexCharts(
-        taskStatusChartElement,
-        options
+      taskStatusChartElement,
+      options
     );
 
     taskStatusChart.render();
-}
-// End Task Status Chart
-   if (document.getElementById('salesChart')) {
-   // --- Replace these arrays with your real monthly sales numbers (12 values each) ---
+  }
+  // End Task Status Chart
+
+
+  if (document.getElementById('salesChart')) {
+    // --- Replace these arrays with your real monthly sales numbers (12 values each) ---
     const salesThisYear = [42000, 53000, 48000, 61000, 72000, 69000, 74000, 82000, 78000, 86000, 91000, 97000];
     const salesLastYear = [38000, 45000, 47000, 56000, 65000, 63000, 68000, 70000, 69000, 75000, 80000, 84000];
 
     // Categories for x-axis (months)
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     const options = {
       chart: {
@@ -257,7 +294,13 @@ if (taskStatusChartElement) {
         },
       },
       colors: ['#E66239', '#198754'],
-      stroke: { width: [3, 2.5], curve: 'smooth' },
+
+      stroke: {
+        width: [3, 2.5],
+        curve: 'smooth'
+      },
+
+
       markers: { size: 4, hover: { sizeOffset: 2 } },
       series: [
         { name: 'This Year', data: salesThisYear },
@@ -284,7 +327,7 @@ if (taskStatusChartElement) {
       tooltip: {
         shared: true,
         y: {
-          formatter: function(val) { return formatCurrency(val); }
+          formatter: function (val) { return formatCurrency(val); }
         }
       },
       legend: {
@@ -317,8 +360,8 @@ if (taskStatusChartElement) {
     // Example control: Randomize data (for demo)
     document.getElementById('btn-random').addEventListener('click', () => {
       const rand = () => Math.round((Math.random() * 80 + 20) * 1000); // 20k - 100k
-      const newThisYear = Array.from({length: 12}, rand);
-      const newLastYear = Array.from({length: 12}, rand);
+      const newThisYear = Array.from({ length: 12 }, rand);
+      const newLastYear = Array.from({ length: 12 }, rand);
       chart.updateSeries([
         { name: 'This Year', data: newThisYear },
         { name: 'Last Year', data: newLastYear }

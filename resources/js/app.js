@@ -8,6 +8,9 @@ import '../scss/style.scss';
 import './custom';
 import './sidebar';
 import './chart';
+import './theme';
+
+
 
 window.Alpine = Alpine;
 
