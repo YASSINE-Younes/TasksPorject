@@ -110,83 +110,134 @@ var chart = new ApexCharts(document.querySelector("#salesPurchaseChart"), option
 
 chart.render();
     }
-      if (document.getElementById('customerChart')) {
-    var options = {
-      series: [44, 55],
-      chart: {
-        height: 200,
-        type: 'radialBar',
-      },
-      colors: ['#5BE49B', '#E66239'],
-      plotOptions: {
-        radialBar: {
-          dataLabels: {
-            name: {
-              fontSize: '22px',
-            },
-            value: {
-              fontSize: '16px',
-            },
-            total: {
-              show: false,
-            },
-          },
-          hollow: {
-            margin: 3,
-            size: '40%',
-            background: 'transparent',
-            image: undefined,
-            imageWidth: 150,
-            imageHeight: 150,
-            imageOffsetX: 0,
-            imageOffsetY: 0,
-            imageClipped: true,
-            position: 'front',
-            dropShadow: {
-              enabled: false,
-              top: 0,
-              left: 0,
-              blur: 3,
-              opacity: 0.5,
-            },
-          },
-          track: {
-            show: true,
-            startAngle: undefined,
-            endAngle: undefined,
-            background: "#f0f0f0",
-            strokeWidth: '45%',
-            opacity: 1,
-            margin: 5,
-            dropShadow: {
-              enabled: false,
-              top: 0,
-              left: 0,
-              blur: 3,
-              opacity: 0.5,
-            },
-          },
-        },
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          type: 'vertical',
-          gradientToColors: ['#007867', '#FFD666', '#FFAC82'],
-          stops: [0, 100],
-        },
-      },
-      stroke: {
-        lineCap: 'round',
-      },
- labels: ['First Time', 'Return' ],
+   // Start Task Status Chart
+const taskStatusChartElement = document.getElementById('taskStatusChart');
 
+if (taskStatusChartElement) {
+
+    // قراءة القيم القادمة من Laravel Blade
+    const pendingTasks = Number(
+        taskStatusChartElement.dataset.pending
+    );
+
+    const inProgressTasks = Number(
+        taskStatusChartElement.dataset.inProgress
+    );
+
+    const completedTasks = Number(
+        taskStatusChartElement.dataset.completed
+    );
+
+    const totalTasks =
+        pendingTasks +
+        inProgressTasks +
+        completedTasks;
+
+    const hasTasks = totalTasks > 0;
+
+    const options = {
+
+        // ApexCharts يستقبل أعداد المهام مباشرة
+        series: hasTasks
+            ? [pendingTasks, inProgressTasks, completedTasks]
+            : [1],
+
+        labels: hasTasks
+            ? ['En attente', 'En cours', 'Terminées']
+            : ['Aucune tâche'],
+
+        colors: hasTasks
+            ? ['#f5b800', '#06b6d4', '#00c853']
+            : ['#e9ecef'],
+
+        chart: {
+            type: 'donut',
+            height: 280,
+            toolbar: {
+                show: false
+            }
+        },
+
+        stroke: {
+            width: 4,
+            colors: ['#ffffff']
+        },
+
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: '68%',
+
+                    labels: {
+                        show: true,
+
+                        name: {
+                            show: true,
+                            fontSize: '14px',
+                            color: '#6c757d'
+                        },
+
+                        value: {
+                            show: true,
+                            fontSize: '26px',
+                            fontWeight: 600,
+                            color: '#212529'
+                        },
+
+                        total: {
+                            show: true,
+                            label: 'Total',
+                            fontSize: '14px',
+                            color: '#6c757d',
+
+                            formatter: function () {
+                                return totalTasks;
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        dataLabels: {
+            enabled: false
+        },
+
+        legend: {
+            show: false
+        },
+
+        tooltip: {
+            enabled: hasTasks,
+
+            y: {
+                formatter: function (value) {
+                    return value + (value > 1 ? ' tâches' : ' tâche');
+                }
+            }
+        },
+
+        responsive: [
+            {
+                breakpoint: 768,
+
+                options: {
+                    chart: {
+                        height: 240
+                    }
+                }
+            }
+        ]
     };
 
-    var chart = new ApexCharts(document.querySelector('#customerChart'), options);
-    chart.render();
-  }
+    const taskStatusChart = new ApexCharts(
+        taskStatusChartElement,
+        options
+    );
+
+    taskStatusChart.render();
+}
+// End Task Status Chart
    if (document.getElementById('salesChart')) {
    // --- Replace these arrays with your real monthly sales numbers (12 values each) ---
     const salesThisYear = [42000, 53000, 48000, 61000, 72000, 69000, 74000, 82000, 78000, 86000, 91000, 97000];
