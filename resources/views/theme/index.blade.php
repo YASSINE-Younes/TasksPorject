@@ -55,68 +55,105 @@
 
         <div class="card-body p-3">
 
-            <div class="row g-3">
+            {{-- <div class="row g-3"> --}}
 
 
 
 
+
+
+
+            <form action="{{ route('tasks.index') }}" method="GET" class="row g-3">
 
                 {{-- Search --}}
                 <div class="col-lg-6 col-12">
 
-                    <form action="{{ route('tasks.index') }}" method="GET">
+                    <div class="input-group">
 
-                        <div class="input-group">
+                        <span class="input-group-text bg-white task-search-icon">
+                            <i class="ti ti-search"></i>
+                        </span>
 
-                            <span class="input-group-text bg-white task-search-icon">
-                                <i class="ti ti-search"></i>
-                            </span>
+                        <input type="text" name="search" class="form-control" placeholder="Rechercher une tâche..."
+                            value="{{ request('search') }}">
 
-                            <input type="text" name="search" class="form-control" placeholder="Rechercher une tâche..."
-                                value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">
+                            Rechercher
+                        </button>
 
-                            <button type="submit" class="btn btn-primary">
-                                Rechercher
-                            </button>
+                        <!-- Start Réinitialiser -->
+                        <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary"
+                            title="Réinitialiser les filtres" aria-label="Réinitialiser les filtres">
 
-                        </div>
+                            <i class="ti ti-refresh"></i>
 
-                    </form>
+                        </a>
+                        <!-- End Réinitialiser -->
+
+
+                    </div>
 
                 </div>
-
-
-
-
-
-
+                {{-- End Search --}}
 
 
                 {{-- Status Filter --}}
                 <div class="col-lg-3 col-md-6 col-12">
 
-                    <select class="form-select">
-                        <option value="">Tous les statuts</option>
-                        <option value="pending">Pending</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
+                    <select class="form-select" name="statusFilter">
+
+                        <option value="">
+                            Tous les statuts
+                        </option>
+
+                        <option value="pending" @selected(request('statusFilter') === 'pending')>
+                            Pending
+                        </option>
+
+                        <option value="in_progress" @selected(request('statusFilter') === 'in_progress')>
+                            In Progress
+                        </option>
+
+                        <option value="completed" @selected(request('statusFilter') === 'completed')>
+                            Completed
+                        </option>
+
                     </select>
 
                 </div>
+                {{-- End Status Filter --}}
+
 
                 {{-- Priority Filter --}}
                 <div class="col-lg-3 col-md-6 col-12">
 
-                    <select class="form-select">
-                        <option value="">Toutes les priorités</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
+                    <select class="form-select" name="priorityFilter">
+
+                        <option value="">
+                            Toutes les priorités
+                        </option>
+
+                        <option value="low" @selected(request('priorityFilter') === 'low')>
+                            Low
+                        </option>
+
+                        <option value="medium" @selected(request('priorityFilter') === 'medium')>
+                            Medium
+                        </option>
+
+                        <option value="high" @selected(request('priorityFilter') === 'high')>
+                            High
+                        </option>
+
                     </select>
 
                 </div>
+                {{-- End Priority Filter --}}
 
-            </div>
+            </form>
+
+
+            {{-- </div> --}}
 
         </div>
 

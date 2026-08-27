@@ -28,20 +28,38 @@ class TaskController extends Controller
     public function index(Request $request)
     {
                     $search = $request->search;
+                    $statusFilter = $request->statusFilter;
+                    $priorityFilter = $request->priorityFilter;
+              
+                  
+
 
                 // تجهيز استعلام مهام المستخدم
                 $query = Task::where('user_id', Auth::id());
 
-                // إضافة شرط البحث إلى الاستعلام
+                  // البحث بالعنوان
                 if ($search) 
                 {
                     $query->where('title','like','%' . $search . '%');
                 }
-                
 
-                // تنفيذ الاستعلام والحصول على المهام
+                // الفلترة بالحالة
+                  if($statusFilter)
+                    {
+                    $query->where('status', $statusFilter);
+
+                    }
+               
+                // الفلترة بالأولوية
+                    if($priorityFilter)
+                        {
+                      $query->where('priority', $priorityFilter);
+
+                        }
+
+                  // تنفيذ الاستعلام
                 $tasks = $query->latest()->paginate(6);
-
+                     
                 return view('theme.index', compact('tasks'));
                         
 
