@@ -17,24 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/x' , 'theme.showTask');
+
 
 Route::controller(ThemeController::class)->name('theme.')->group(function(){
-    route::get('/' , 'index')->name('index');
-    route::get('/add' , 'add')->name('add');
+    Route::get('/' , 'index')->name('index');
 
 });
 
 Route::resource('tasks' ,TaskController::class);
  
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+ 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -24,7 +24,7 @@
           </li>
 
 
-          <li><a class="nav-link" href="{{ route('theme.add') }}"><i class="ti ti-plus"></i><span
+          <li><a class="nav-link" href="{{ route('tasks.create') }}"><i class="ti ti-plus"></i><span
                       class="nav-text">Ajouter une tâche</span></a></li>
 
 

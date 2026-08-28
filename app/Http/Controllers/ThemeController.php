@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
  
@@ -13,7 +11,7 @@ class ThemeController extends Controller
 //constructeur
     public function __construct()
     {
-            $this->middleware('auth')->only(['index' , 'add']);
+            $this->middleware('auth');
     }
 
 
@@ -42,9 +40,5 @@ class ThemeController extends Controller
           
     }
 
-    public function add(){
-          
-        return view('theme.addTask');
-       
-    }
+   
 }

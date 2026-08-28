@@ -42,7 +42,7 @@
             </p>
         </div>
 
-        <a href="{{ route('theme.add') }}" class="btn btn-primary">
+        <a href="{{ route('tasks.create') }}" class="btn btn-primary">
             <i class="ti ti-plus me-1"></i>
             Ajouter une tâche
         </a>

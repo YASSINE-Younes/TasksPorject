@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
- use App\Http\Requests\StoreTaskRequest;
- use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -70,7 +69,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+          return view('theme.addTask');
     }
 
     /**
@@ -108,7 +107,7 @@ class TaskController extends Controller
          // Créer un nouvel enregistrement dans la table TASKS
         Task::create($data);
         return back()->with('task-status',
-           'Task Added with success');
+           'La tâche a été ajoutée avec succès');
     }
 
     /**
@@ -123,7 +122,7 @@ class TaskController extends Controller
       return view('theme.showTask' , compact('task'));
             }
             else {
-                abort(403 , 'Impossible de voir  une tache pas de vous ' );
+                abort(403 , 'Vous n’êtes pas autorisé à consulter cette tâche. ' );
             }
     }
 
@@ -139,7 +138,7 @@ class TaskController extends Controller
             return view('theme.editTask' , compact('task'));
             }
             else {
-                abort(403 , 'Impossible de modofier  une tache pas de vous ' );
+                abort(403 , 'Vous n’êtes pas autorisé à modifier cette tâche.' );
             }
       
     }
