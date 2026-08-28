@@ -32,6 +32,22 @@ class LoginRequest extends FormRequest
         ];
     }
 
+
+        public function messages(): array
+        {
+            return [
+                'email.required' => 'Le champ e-mail est obligatoire.',
+                'email.email' => 'Veuillez saisir une adresse e-mail valide.',
+                'email.string' => 'Le champ e-mail doit être une chaîne de caractères.',
+
+                'password.required' => 'Le champ mot de passe est obligatoire.',
+                'password.string' => 'Le champ mot de passe doit être une chaîne de caractères.',
+            ];
+        }
+
+
+
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -45,7 +61,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'L’adresse e-mail ou le mot de passe est incorrect.',
             ]);
         }
 
@@ -68,10 +84,10 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+        
+         'email' => "Trop de tentatives de connexion. Veuillez réessayer dans {$seconds} secondes.",
+                
+           
         ]);
     }
 
