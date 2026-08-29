@@ -1,66 +1,216 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestion de tâches
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Application web de gestion de tâches personnelles développée avec Laravel.
 
-## About Laravel
+Chaque utilisateur peut créer et organiser ses propres tâches, suivre leur progression, définir leur priorité et consulter un tableau de bord récapitulatif.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fonctionnalités
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Inscription et authentification des utilisateurs
+- Déconnexion sécurisée
+- Création, consultation, modification et suppression des tâches
+- Isolation des tâches par utilisateur
+- Ajout d’une image facultative
+- Suppression automatique de l’ancienne image lors du remplacement
+- Gestion des statuts :
+  - En attente
+  - En cours
+  - Terminée
+- Gestion des priorités :
+  - Faible
+  - Moyenne
+  - Élevée
+- Définition d’une date d’échéance
+- Recherche des tâches par titre
+- Filtrage par statut et priorité
+- Combinaison de plusieurs critères de filtrage
+- Pagination avec conservation des filtres
+- Tableau de bord avec statistiques
+- Graphique de répartition des tâches
+- Mode clair et mode sombre
+- Interface responsive
+- Pages d’erreur personnalisées 403 et 404
+- Protection contre l’accès aux tâches d’un autre utilisateur
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technologies utilisées
 
-## Learning Laravel
+- PHP
+- Laravel 10
+- MySQL
+- Laravel Breeze
+- Blade
+- Bootstrap
+- SCSS
+- JavaScript
+- Vite
+- ApexCharts
+- Tabler Icons
+- Git et GitHub
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 1. Cloner le projet
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/YASSINE-Younes/TasksPorject.git
+```
 
-## Laravel Sponsors
+Accéder au dossier :
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+cd TasksPorject
+```
 
-### Premium Partners
+### 2. Installer les dépendances PHP
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+composer install
+```
 
-## Contributing
+### 3. Installer les dépendances JavaScript
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+npm install
+```
 
-## Code of Conduct
+### 4. Créer le fichier d’environnement
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Sous Windows :
 
-## Security Vulnerabilities
+```bash
+copy .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Sous Linux ou macOS :
 
-## License
+```bash
+cp .env.example .env
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 5. Générer la clé de l’application
+
+```bash
+php artisan key:generate
+```
+
+### 6. Configurer la base de données
+
+Modifier les informations suivantes dans `.env` :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=tasks_project
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Créer ensuite la base de données :
+
+```text
+tasks_project
+```
+
+### 7. Exécuter les migrations
+
+```bash
+php artisan migrate
+```
+
+### 8. Créer le lien symbolique du stockage
+
+```bash
+php artisan storage:link
+```
+
+Cette commande permet d’afficher les images enregistrées dans :
+
+```text
+storage/app/public/tasks
+```
+
+### 9. Démarrer Vite
+
+```bash
+npm run dev
+```
+
+### 10. Démarrer Laravel
+
+```bash
+php artisan serve
+```
+
+L’application sera accessible à l’adresse :
+
+```text
+http://127.0.0.1:8000
+```
+
+## Compilation pour la production
+
+Pour générer les fichiers CSS et JavaScript destinés à la production :
+
+```bash
+npm run build
+```
+
+Dans l’environnement de production :
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+```
+
+## Sécurité
+
+L’application vérifie que chaque tâche appartient à l’utilisateur connecté avant d’autoriser sa consultation, sa modification ou sa suppression.
+
+Une tentative d’accès à la tâche d’un autre utilisateur retourne une réponse :
+
+```text
+403 Accès interdit
+```
+
+Les liens inexistants retournent une page personnalisée avec le statut HTTP :
+
+```text
+404 Page introuvable
+```
+
+## Captures d’écran
+
+### Tableau de bord
+
+![Tableau de bord](docs/screenshots/dashboard.png)
+### Liste des tâches
+
+![Liste des tâches](docs/screenshots/tasks.png)
+
+### Ajout d’une tâche
+
+![Ajout d’une tâche](docs/screenshots/add-task.png)
+
+### Mode sombre
+
+![Mode sombre](docs/screenshots/dark-mode.png)
+## Améliorations futures
+
+- Réinitialisation du mot de passe
+- Vérification de l’adresse e-mail
+- Notifications avant la date d’échéance
+- Utilisation des Policies Laravel
+- Tests automatisés
+- API REST
+- Application frontend avec Vue.js
+
+## Auteur
+
+Développé par **Yassine Younes**.
+
+GitHub : [YASSINE-Younes](https://github.com/YASSINE-Younes)
+
+## Licence
+
+Ce projet a été réalisé à des fins d’apprentissage et de présentation professionnelle.
