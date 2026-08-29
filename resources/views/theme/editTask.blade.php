@@ -1,5 +1,8 @@
 @extends('theme.master')
 
+@section('title', 'Modifier la tâche')
+
+
 @section('content')
     <style>
         .current-task-image {

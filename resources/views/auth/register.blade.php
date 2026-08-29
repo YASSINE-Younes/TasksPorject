@@ -5,37 +5,19 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Inscription - Gestion de tâches</title>
+    <title> Gestion de tâches - Inscription </title>
 
 
     {{-- Favicon --}}
-    <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="{{ asset('assets/images/favicon_io/apple-touch-icon.png') }}"
-    >
-
-    <link
+    <link 
         rel="icon"
         type="image/png"
-        sizes="32x32"
-        href="{{ asset('assets/images/favicon_io/favicon-32x32.png') }}"
-    >
+        href="{{ asset('assets/images/favicon_io/favicon.png') }}"
+        >
+    
 
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="{{ asset('assets/images/favicon_io/favicon-16x16.png') }}"
-    >
-
-    <link
-        rel="manifest"
-        href="{{ asset('assets/images/favicon_io/site.webmanifest') }}"
-    >
 
 
     @vite(['resources/js/app.js'])
@@ -53,13 +35,9 @@
                 {{-- Page Header --}}
                 <div class="text-center mb-3">
 
-                    <a href="{{ route('register') }}"
-                        class="mb-4 d-inline-block">
+                    <a href="{{ route('register') }}" class="mb-4 d-inline-block">
 
-                        <img
-                            src="{{ asset('assets/images/logo.svg') }}"
-                            alt="Gestion de tâches"
-                        >
+                        <img src="{{ asset('assets/images/logo.svg') }}" alt="Gestion de tâches">
 
                     </a>
 
@@ -71,12 +49,7 @@
 
 
                 {{-- Register Form --}}
-                <form
-                    method="POST"
-                    action="{{ route('register') }}"
-                    class="mt-3"
-                    novalidate
-                >
+                <form method="POST" action="{{ route('register') }}" class="mt-3" novalidate>
 
                     @csrf
 
@@ -88,22 +61,11 @@
                             Nom et prénom
                         </label>
 
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            class="form-control"
-                            placeholder="Entrez votre nom complet"
-                            value="{{ old('name') }}"
-                            autocomplete="name"
-                            required
-                            autofocus
-                        >
+                        <input id="name" name="name" type="text" class="form-control"
+                            placeholder="Entrez votre nom complet" value="{{ old('name') }}" autocomplete="name"
+                            required autofocus>
 
-                        <x-input-error
-                            :messages="$errors->get('name')"
-                            class="mt-2"
-                        />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
 
                     </div>
 
@@ -115,21 +77,10 @@
                             E-mail
                         </label>
 
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            class="form-control"
-                            placeholder="nom@example.com"
-                            value="{{ old('email') }}"
-                            autocomplete="email"
-                            required
-                        >
+                        <input id="email" name="email" type="email" class="form-control"
+                            placeholder="nom@example.com" value="{{ old('email') }}" autocomplete="email" required>
 
-                        <x-input-error
-                            :messages="$errors->get('email')"
-                            class="mt-2"
-                        />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
                     </div>
 
@@ -141,20 +92,10 @@
                             Mot de passe
                         </label>
 
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Créez un mot de passe"
-                            autocomplete="new-password"
-                            required
-                        >
+                        <input id="password" name="password" type="password" class="form-control"
+                            placeholder="Créez un mot de passe" autocomplete="new-password" required>
 
-                        <x-input-error
-                            :messages="$errors->get('password')"
-                            class="mt-2"
-                        />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
                     </div>
 
@@ -162,30 +103,20 @@
                     {{-- Password Confirmation --}}
                     <div class="mb-3">
 
-                        <label for="password_confirmation"
-                            class="form-label">
+                        <label for="password_confirmation" class="form-label">
 
                             Confirmez le mot de passe
 
                         </label>
 
-                        <input
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            type="password"
-                            class="form-control"
-                            placeholder="Confirmez le mot de passe"
-                            autocomplete="new-password"
-                            required
-                        >
+                        <input id="password_confirmation" name="password_confirmation" type="password"
+                            class="form-control" placeholder="Confirmez le mot de passe" autocomplete="new-password"
+                            required>
 
                     </div>
 
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary w-100"
-                    >
+                    <button type="submit" class="btn btn-primary w-100">
                         S'inscrire
                     </button>
 
@@ -197,8 +128,7 @@
 
                     Vous avez déjà un compte ?
 
-                    <a href="{{ route('login') }}"
-                        class="link-primary">
+                    <a href="{{ route('login') }}" class="link-primary">
                         Se connecter
                     </a>
 

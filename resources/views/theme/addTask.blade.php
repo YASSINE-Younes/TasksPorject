@@ -1,6 +1,6 @@
   @extends('theme.master')
 
-
+@section('title', 'Ajouter une tâche')
 
   @section('content')
       <!-- Start MAIN CONTENT -->

@@ -1,5 +1,7 @@
 @extends('theme.master')
 
+@section('title', 'Détails de la tâche')
+
 @section('content')
     <style>
         .task-details-image {

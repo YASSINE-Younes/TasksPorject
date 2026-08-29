@@ -1,5 +1,7 @@
 @extends('theme.master')
 
+@section('title' ,'Mes Taches')
+
 @section('content')
     <style>
         .task-card {
@@ -182,7 +184,8 @@
 
         {{-- Task 1 --}}
 
-        @if (count($tasks) > 0)
+        
+        @if ($tasks->isNotEmpty())
             @foreach ($tasks as $task)
                 <div class="col-xl-4 col-md-6 col-12">
 
@@ -325,13 +328,45 @@
             @endforeach
         @else
             <div class="col-12">
-                <div class="alert alert-info text-center">
-                    @if (request('search'))
-                        Aucune tâche trouvée pour « {{ request('search') }} ».
+
+                <div class="text-center py-5">
+
+                    <i class="ti ti-clipboard-off fs-1 text-muted"></i>
+
+                    @if (request('search') || request('statusFilter') || request('priorityFilter'))
+                        <h3 class="h5 mt-3">
+                            Aucun résultat trouvé
+                        </h3>
+
+                        <p class="text-muted">
+                            Aucune tâche ne correspond à vos critères de recherche.
+                        </p>
+
+                        <a href="{{ route('tasks.index') }}" class="btn btn-outline-secondary">
+
+                            <i class="ti ti-refresh me-1"></i>
+                            Réinitialiser les filtres
+
+                        </a>
                     @else
-                        Vous n’avez encore aucune tâche.
+                        <h3 class="h5 mt-3">
+                            Vous n’avez encore aucune tâche
+                        </h3>
+
+                        <p class="text-muted">
+                            Commencez par créer votre première tâche.
+                        </p>
+
+                        <a href="{{ route('tasks.create') }}" class="btn btn-primary">
+
+                            <i class="ti ti-plus me-1"></i>
+                            Ajouter une tâche
+
+                        </a>
                     @endif
+
                 </div>
+
             </div>
         @endif
 
@@ -340,16 +375,17 @@
     {{-- End Tasks Cards --}}
 
     {{-- Start Pagination --}}
-    <div class="d-flex justify-content-center mt-5">
+ 
+   @if ($tasks->hasPages())
+            <div class="d-flex justify-content-center mt-5">
 
+                {{ $tasks->withQueryString()->links('pagination::bootstrap-4') }}
+                {{-- {{ $tasks->render('pagination::bootstrap-4') }} --}}
+                     
 
-
-        {{-- {{ $tasks->render('pagination::bootstrap-4') }} --}}
-        {{ $tasks->withQueryString()->links('pagination::bootstrap-4') }}
-
-
-
-    </div>
+            </div>
+        @endif
+ 
     {{-- End Pagination --}}
 
     @include('theme.partials.footer')

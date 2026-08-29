@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 
 <!-- Head -->
 @include('theme.partials.head')
+ 
+
+
 
 <body>
     <div id="overlay" class="overlay"></div>

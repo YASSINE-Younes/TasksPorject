@@ -1,5 +1,7 @@
 @extends('theme.master')
 
+@section('title', 'Tableau de bord')
+
 @section('content')
     <style>
         .dashboard-stat-card {
