@@ -122,7 +122,7 @@ class TaskController extends Controller
       return view('theme.showTask' , compact('task'));
             }
             else {
-                abort(403 , 'Vous n’êtes pas autorisé à consulter cette tâche. ' );
+                abort(403 , 'Vous n’êtes pas autorisé à consulter cette tâche.' );
             }
     }
 

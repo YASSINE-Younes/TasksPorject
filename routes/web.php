@@ -27,7 +27,7 @@ Route::controller(ThemeController::class)->name('theme.')->group(function(){
 Route::resource('tasks' ,TaskController::class);
  
 
- 
+ Route::view('/x' , 'theme.errors.403');
 
 
 
