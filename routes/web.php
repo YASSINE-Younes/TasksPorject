@@ -27,7 +27,7 @@ Route::controller(ThemeController::class)->name('theme.')->group(function(){
 Route::resource('tasks' ,TaskController::class);
  
 
- Route::view('/x' , 'theme.errors.403');
+
 
 
 
@@ -38,3 +38,14 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//Route FallBack 404
+Route::fallback(function () {
+
+    return response()->view(
+        'errors.404',
+        [],
+        404
+    );
+
+});
