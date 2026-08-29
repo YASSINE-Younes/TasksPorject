@@ -59,7 +59,7 @@ class TaskController extends Controller
                   // تنفيذ الاستعلام
                 $tasks = $query->latest()->paginate(6);
                      
-                return view('theme.index', compact('tasks'));
+                return view('theme.mesTaches', compact('tasks'));
                         
 
     }

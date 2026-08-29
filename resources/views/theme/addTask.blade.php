@@ -15,7 +15,7 @@
 
                   <!-- Button Right -->
                   <div>
-                      <a href="inventory.html" class="btn btn-primary">Aller au tableau de bord</a>
+                      <a href="{{ route('theme.dashboard') }}" class="btn btn-primary">Aller au tableau de bord</a>
                   </div>
 
 

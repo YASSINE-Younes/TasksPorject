@@ -15,7 +15,7 @@ class ThemeController extends Controller
     }
 
 
-    public function index()
+    public function dashboard()
     {
             $user = User::findOrFail(Auth::id());
 
